@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mercadona_app_molona/categories/model/categories_response.dart';
+import 'package:mercadona_app_molona/products/widget/list_prducts_category.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -14,9 +15,16 @@ class CategoryItem extends StatelessWidget {
         body: ListView.builder(
           itemCount: category.categories?.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(category.categories![index].name!),
-            );
+            return ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ListsProdCat(
+                            id: category.categories![index].id.toString()),
+                      ));
+                },
+                child: Text(category.categories![index].name!));
           },
         ));
   }
