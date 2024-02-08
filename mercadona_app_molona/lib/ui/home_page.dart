@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mercadona_app_molona/home/widgets/novedades_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,10 +13,7 @@ class _HomePageState extends State<HomePage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    NovedadesListWidget(),
     Text(
       'Index 1: Categories',
       style: optionStyle,
