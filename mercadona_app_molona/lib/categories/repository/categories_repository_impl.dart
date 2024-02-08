@@ -13,7 +13,8 @@ class CategoryRepositoryImpl extends CategoryRepository {
         .get(Uri.parse('https://tienda.mercadona.es/api/categories/'));
 
     if (response.statusCode == 200) {
-      return CategoriesListResponse.fromJson(jsonDecode(response.body))
+      return CategoriesListResponse.fromJson(
+              jsonDecode(utf8.decode(response.bodyBytes)))
           .results!;
     } else {
       throw Exception("No va");

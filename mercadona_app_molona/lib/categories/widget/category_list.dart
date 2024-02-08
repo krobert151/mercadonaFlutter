@@ -4,6 +4,7 @@ import 'package:mercadona_app_molona/categories/bloc/categories/category_state.d
 import 'package:mercadona_app_molona/categories/repository/categories_repository.dart';
 import 'package:mercadona_app_molona/categories/repository/categories_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mercadona_app_molona/categories/widget/category_item.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key});
@@ -36,9 +37,28 @@ class _CategoryListState extends State<CategoryList> {
   }
 
   _categoryList() {
-    return BlocBuilder(
+    return BlocBuilder<CategoryBloc, CategoryState>(
         builder: (BuildContext context, CategoryState state) {
-          if ()
-        });
+      if (state is CategoryFetchSuccess) {
+        return ListView.builder(
+          itemCount: state.categoryList.length,
+          itemBuilder: (context, index) {
+            return ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CategoryItem(category: state.categoryList[index]),
+                      ));
+                },
+                child: Text(state.categoryList[index].name!));
+          },
+        );
+      } else if (state is CategoryFetchError) {
+        return Text(state.errorMsg);
+      }
+      return Text('Manolo');
+    });
   }
 }
