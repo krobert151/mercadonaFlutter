@@ -108,9 +108,9 @@ class Items {
   String? thumbnail;
   List<Categories>? categories;
   String? displayName;
-  String? unavailableFrom;
+  String? unavailableFrom; // Change from Null to String
   PriceInstructions? priceInstructions;
-  List<String>? unavailableWeekdays;
+  List<String>? unavailableWeekdays; // Change from List<Null> to List<String>
 
   Items(
       {this.id,
@@ -142,7 +142,7 @@ class Items {
     buttonColor = json['button_color'];
     apiPath = json['api_path'];
     slug = json['slug'];
-    limit = json['limit'];
+    limit = json['limit'] as int?;
     badges =
         json['badges'] != null ? new Badges.fromJson(json['badges']) : null;
     packaging = json['packaging'];
@@ -160,7 +160,9 @@ class Items {
     priceInstructions = json['price_instructions'] != null
         ? new PriceInstructions.fromJson(json['price_instructions'])
         : null;
-    unavailableWeekdays = json['unavailable_weekdays'];
+    unavailableWeekdays = json['unavailable_weekdays'] != null
+        ? List<String>.from(json['unavailable_weekdays'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
