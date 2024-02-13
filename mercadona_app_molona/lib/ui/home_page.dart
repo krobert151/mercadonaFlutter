@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mercadona_app_molona/categories/widget/category_list.dart';
 import 'package:mercadona_app_molona/home/widgets/novedades_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,14 +11,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     NovedadesListWidget(),
-    Text(
-      'Index 1: Categories',
-      style: optionStyle,
-    ),
+    CategoryList(),
   ];
 
   void _onItemTapped(int index) {
