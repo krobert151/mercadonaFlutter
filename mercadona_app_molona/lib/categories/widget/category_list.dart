@@ -4,7 +4,7 @@ import 'package:mercadona_app_molona/categories/bloc/categories/category_state.d
 import 'package:mercadona_app_molona/categories/repository/categories_repository.dart';
 import 'package:mercadona_app_molona/categories/repository/categories_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mercadona_app_molona/categories/widget/category_item.dart';
+import 'package:mercadona_app_molona/products/widget/list_prducts_category.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key});
@@ -48,8 +48,8 @@ class _CategoryListState extends State<CategoryList> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            CategoryItem(category: state.categoryList[index]),
+                        builder: (context) => ListsProdCat(
+                            id: state.categoryList[index].id.toString()),
                       ));
                 },
                 child: Text(state.categoryList[index].name!));

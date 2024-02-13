@@ -1,13 +1,61 @@
 class ProdCadtegoryResponse {
   int? id;
   String? name;
-  int? order;
-  int? layout;
+  dynamic order;
+  dynamic layout;
+  bool? published;
+  List<Categories>? categories;
+  bool? isExtended;
+
+  ProdCadtegoryResponse(
+      {this.id,
+      this.name,
+      this.order,
+      this.layout,
+      this.published,
+      this.categories,
+      this.isExtended});
+
+  ProdCadtegoryResponse.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    order = json['order'];
+    layout = json['layout'];
+    published = json['published'];
+    if (json['categories'] != null) {
+      categories = <Categories>[];
+      json['categories'].forEach((v) {
+        categories!.add(new Categories.fromJson(v));
+      });
+    }
+    isExtended = json['is_extended'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['order'] = this.order;
+    data['layout'] = this.layout;
+    data['published'] = this.published;
+    if (this.categories != null) {
+      data['categories'] = this.categories!.map((v) => v.toJson()).toList();
+    }
+    data['is_extended'] = this.isExtended;
+    return data;
+  }
+}
+
+class Categories {
+  int? id;
+  String? name;
+  dynamic order;
+  dynamic layout;
   List<Products>? products;
   bool? published;
   bool? isExtended;
 
-  ProdCadtegoryResponse(
+  Categories(
       {this.id,
       this.name,
       this.order,
@@ -16,7 +64,7 @@ class ProdCadtegoryResponse {
       this.published,
       this.isExtended});
 
-  ProdCadtegoryResponse.fromJson(Map<String, dynamic> json) {
+  Categories.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     order = json['order'];
@@ -49,17 +97,15 @@ class ProdCadtegoryResponse {
 class Products {
   String? id;
   String? slug;
-  int? limit;
+  dynamic limit;
   Badges? badges;
   String? packaging;
   bool? published;
   String? shareUrl;
   String? thumbnail;
-  List<Categories>? categories;
+  List<ProductCategory>? categories;
   String? displayName;
-  String? unavailableFrom;
   PriceInstructions? priceInstructions;
-  List<String>? unavailableWeekdays;
 
   Products(
       {this.id,
@@ -72,9 +118,7 @@ class Products {
       this.thumbnail,
       this.categories,
       this.displayName,
-      this.unavailableFrom,
-      this.priceInstructions,
-      this.unavailableWeekdays});
+      this.priceInstructions});
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -87,22 +131,15 @@ class Products {
     shareUrl = json['share_url'];
     thumbnail = json['thumbnail'];
     if (json['categories'] != null) {
-      categories = <Categories>[];
+      categories = <ProductCategory>[];
       json['categories'].forEach((v) {
-        categories!.add(new Categories.fromJson(v));
+        categories!.add(new ProductCategory.fromJson(v));
       });
     }
     displayName = json['display_name'];
-    unavailableFrom = json['unavailable_from'];
     priceInstructions = json['price_instructions'] != null
         ? new PriceInstructions.fromJson(json['price_instructions'])
         : null;
-    if (json['unavailable_weekdays'] != null) {
-      unavailableWeekdays = <String>[];
-      json['unavailable_weekdays'].forEach((v) {
-        unavailableWeekdays!.add(v);
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -121,13 +158,8 @@ class Products {
       data['categories'] = this.categories!.map((v) => v.toJson()).toList();
     }
     data['display_name'] = this.displayName;
-    data['unavailable_from'] = this.unavailableFrom;
     if (this.priceInstructions != null) {
       data['price_instructions'] = this.priceInstructions!.toJson();
-    }
-    if (this.unavailableWeekdays != null) {
-      data['unavailable_weekdays'] =
-          this.unavailableWeekdays!.map((v) => v).toList();
     }
     return data;
   }
@@ -152,15 +184,15 @@ class Badges {
   }
 }
 
-class Categories {
+class ProductCategory {
   int? id;
   String? name;
   int? level;
   int? order;
 
-  Categories({this.id, this.name, this.level, this.order});
+  ProductCategory({this.id, this.name, this.level, this.order});
 
-  Categories.fromJson(Map<String, dynamic> json) {
+  ProductCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     level = json['level'];
@@ -178,27 +210,25 @@ class Categories {
 }
 
 class PriceInstructions {
-  int? iva;
+  dynamic iva;
   bool? isNew;
   bool? isPack;
-  double? packSize;
+  dynamic packSize;
   String? unitName;
-  double? unitSize;
+  dynamic unitSize;
   String? bulkPrice;
   String? unitPrice;
   bool? approxSize;
   String? sizeFormat;
-  int? totalUnits;
+  dynamic totalUnits;
   bool? unitSelector;
   bool? bunchSelector;
-  String? drainedWeight;
-  int? sellingMethod;
+  dynamic sellingMethod;
   bool? priceDecreased;
   String? referencePrice;
-  int? minBunchAmount;
+  dynamic minBunchAmount;
   String? referenceFormat;
-  String? previousUnitPrice;
-  int? incrementBunchAmount;
+  dynamic incrementBunchAmount;
 
   PriceInstructions(
       {this.iva,
@@ -214,13 +244,11 @@ class PriceInstructions {
       this.totalUnits,
       this.unitSelector,
       this.bunchSelector,
-      this.drainedWeight,
       this.sellingMethod,
       this.priceDecreased,
       this.referencePrice,
       this.minBunchAmount,
       this.referenceFormat,
-      this.previousUnitPrice,
       this.incrementBunchAmount});
 
   PriceInstructions.fromJson(Map<String, dynamic> json) {
@@ -237,13 +265,11 @@ class PriceInstructions {
     totalUnits = json['total_units'];
     unitSelector = json['unit_selector'];
     bunchSelector = json['bunch_selector'];
-    drainedWeight = json['drained_weight'];
     sellingMethod = json['selling_method'];
     priceDecreased = json['price_decreased'];
     referencePrice = json['reference_price'];
     minBunchAmount = json['min_bunch_amount'];
     referenceFormat = json['reference_format'];
-    previousUnitPrice = json['previous_unit_price'];
     incrementBunchAmount = json['increment_bunch_amount'];
   }
 
@@ -262,13 +288,11 @@ class PriceInstructions {
     data['total_units'] = this.totalUnits;
     data['unit_selector'] = this.unitSelector;
     data['bunch_selector'] = this.bunchSelector;
-    data['drained_weight'] = this.drainedWeight;
     data['selling_method'] = this.sellingMethod;
     data['price_decreased'] = this.priceDecreased;
     data['reference_price'] = this.referencePrice;
     data['min_bunch_amount'] = this.minBunchAmount;
     data['reference_format'] = this.referenceFormat;
-    data['previous_unit_price'] = this.previousUnitPrice;
     data['increment_bunch_amount'] = this.incrementBunchAmount;
     return data;
   }

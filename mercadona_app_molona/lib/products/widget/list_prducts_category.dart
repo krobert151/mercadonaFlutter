@@ -43,10 +43,12 @@ class _ListsProdCatState extends State<ListsProdCat> {
       builder: (BuildContext context, ProdCatState state) {
         if (state is ProdCatFetchSuccess) {
           return ListView.builder(
-            itemCount: state.prodCadtegoryResponse.products?.length,
+            itemCount:
+                state.prodCadtegoryResponse.categories![0].products!.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(state.prodCadtegoryResponse.toJson().toString()),
+                title: Text(state.prodCadtegoryResponse.categories![0]
+                    .products![index].displayName!),
               );
             },
           );
