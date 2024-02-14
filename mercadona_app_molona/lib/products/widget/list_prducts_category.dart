@@ -3,20 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mercadona_app_molona/products/bloc/prod_cat_bloc.dart';
 import 'package:mercadona_app_molona/products/repository/prodcat_repository.dart';
 import 'package:mercadona_app_molona/products/repository/prodcat_repository_impl.dart';
+import 'package:mercadona_app_molona/products/widget/horizontal_product_list.dart';
 
 class ListsProdCat extends StatefulWidget {
   final String id;
   const ListsProdCat({super.key, required this.id});
 
   @override
-  State<ListsProdCat> createState() => _ListsProdCatState(id: id);
+  State<ListsProdCat> createState() => _ListsProdCatState();
 }
 
 class _ListsProdCatState extends State<ListsProdCat> {
-  final String id;
   late ProductoRepository prodCatRepository;
-
-  _ListsProdCatState({required this.id});
 
   @override
   void initState() {
@@ -28,7 +26,7 @@ class _ListsProdCatState extends State<ListsProdCat> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ProdCatBloc(prodCatRepository)..add(ProdCatFetch(id)),
+          ProdCatBloc(prodCatRepository)..add(ProdCatFetch(widget.id)),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Mercadona Wapo de Cojones"),
@@ -42,15 +40,25 @@ class _ListsProdCatState extends State<ListsProdCat> {
     return BlocBuilder<ProdCatBloc, ProdCatState>(
       builder: (BuildContext context, ProdCatState state) {
         if (state is ProdCatFetchSuccess) {
-          return ListView.builder(
-            itemCount:
-                state.prodCadtegoryResponse.categories![0].products!.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(state.prodCadtegoryResponse.categories![0]
-                    .products![index].displayName!),
-              );
-            },
+          return SizedBox(
+            height: double.infinity,
+            child: ListView.builder(
+              itemCount: state.prodCadtegoryResponse.categories!.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${state.prodCadtegoryResponse.categories![index].name!} ${state.prodCadtegoryResponse.categories![index].id.toString()}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    HorizontalList(
+                        state.prodCadtegoryResponse.categories![index].products)
+                  ],
+                );
+              },
+            ),
           );
         } else if (state is ProdCatFetchError) {
           return Text(state.errorMsg);

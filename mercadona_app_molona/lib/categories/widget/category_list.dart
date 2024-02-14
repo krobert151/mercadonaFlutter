@@ -49,7 +49,8 @@ class _CategoryListState extends State<CategoryList> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ListsProdCat(
-                            id: state.categoryList[index].id.toString()),
+                            id: state.categoryList[index].categories![0].id
+                                .toString()),
                       ));
                 },
                 child: Text(state.categoryList[index].name!));
@@ -58,7 +59,7 @@ class _CategoryListState extends State<CategoryList> {
       } else if (state is CategoryFetchError) {
         return Text(state.errorMsg);
       }
-      return Text('Manolo');
+      return const Text('Manolo');
     });
   }
 }
