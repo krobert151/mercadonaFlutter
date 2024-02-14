@@ -7,15 +7,15 @@ class HomeResponse {
     if (json['sections'] != null) {
       sections = <Sections>[];
       json['sections'].forEach((v) {
-        sections!.add(Sections.fromJson(v));
+        sections!.add(new Sections.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (sections != null) {
-      data['sections'] = sections!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.sections != null) {
+      data['sections'] = this.sections!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -30,14 +30,14 @@ class Sections {
   Sections.fromJson(Map<String, dynamic> json) {
     layout = json['layout'];
     content =
-        json['content'] != null ? Content.fromJson(json['content']) : null;
+        json['content'] != null ? new Content.fromJson(json['content']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['layout'] = layout;
-    if (content != null) {
-      data['content'] = content!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['layout'] = this.layout;
+    if (this.content != null) {
+      data['content'] = this.content!.toJson();
     }
     return data;
   }
@@ -46,53 +46,59 @@ class Sections {
 class Content {
   String? title;
   String? subtitle;
+  List<Items>? items;
   String? source;
   String? sourceCode;
-  List<Items>? items;
   String? apiPath;
   String? apiPathText;
 
   Content(
       {this.title,
       this.subtitle,
+      this.items,
       this.source,
       this.sourceCode,
-      this.items,
       this.apiPath,
       this.apiPathText});
 
   Content.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     subtitle = json['subtitle'];
-    source = json['source'];
-    sourceCode = json['source_code'];
     if (json['items'] != null) {
       items = <Items>[];
       json['items'].forEach((v) {
-        items!.add(Items.fromJson(v));
+        items!.add(new Items.fromJson(v));
       });
     }
+    source = json['source'];
+    sourceCode = json['source_code'];
     apiPath = json['api_path'];
     apiPathText = json['api_path_text'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
-    data['subtitle'] = subtitle;
-    data['source'] = source;
-    data['source_code'] = sourceCode;
-    if (items != null) {
-      data['items'] = items!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['subtitle'] = this.subtitle;
+    if (this.items != null) {
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
-    data['api_path'] = apiPath;
-    data['api_path_text'] = apiPathText;
+    data['source'] = this.source;
+    data['source_code'] = this.sourceCode;
+    data['api_path'] = this.apiPath;
+    data['api_path_text'] = this.apiPathText;
     return data;
   }
 }
 
 class Items {
-  int? id;
+  String? id;
+  String? title;
+  String? imageUrl;
+  String? textColor;
+  List<String>? bgColors;
+  String? buttonColor;
+  String? apiPath;
   String? slug;
   int? limit;
   Badges? badges;
@@ -106,6 +112,12 @@ class Items {
 
   Items(
       {this.id,
+      this.title,
+      this.imageUrl,
+      this.textColor,
+      this.bgColors,
+      this.buttonColor,
+      this.apiPath,
       this.slug,
       this.limit,
       this.badges,
@@ -119,9 +131,16 @@ class Items {
 
   Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    title = json['title'];
+    imageUrl = json['image_url'];
+    textColor = json['text_color'];
+    bgColors = json['bg_colors'].cast<String>();
+    buttonColor = json['button_color'];
+    apiPath = json['api_path'];
     slug = json['slug'];
     limit = json['limit'];
-    badges = json['badges'] != null ? Badges.fromJson(json['badges']) : null;
+    badges =
+        json['badges'] != null ? new Badges.fromJson(json['badges']) : null;
     packaging = json['packaging'];
     published = json['published'];
     shareUrl = json['share_url'];
@@ -129,33 +148,39 @@ class Items {
     if (json['categories'] != null) {
       categories = <Categories>[];
       json['categories'].forEach((v) {
-        categories!.add(Categories.fromJson(v));
+        categories!.add(new Categories.fromJson(v));
       });
     }
     displayName = json['display_name'];
     priceInstructions = json['price_instructions'] != null
-        ? PriceInstructions.fromJson(json['price_instructions'])
+        ? new PriceInstructions.fromJson(json['price_instructions'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['slug'] = slug;
-    data['limit'] = limit;
-    if (badges != null) {
-      data['badges'] = badges!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['image_url'] = this.imageUrl;
+    data['text_color'] = this.textColor;
+    data['bg_colors'] = this.bgColors;
+    data['button_color'] = this.buttonColor;
+    data['api_path'] = this.apiPath;
+    data['slug'] = this.slug;
+    data['limit'] = this.limit;
+    if (this.badges != null) {
+      data['badges'] = this.badges!.toJson();
     }
-    data['packaging'] = packaging;
-    data['published'] = published;
-    data['share_url'] = shareUrl;
-    data['thumbnail'] = thumbnail;
-    if (categories != null) {
-      data['categories'] = categories!.map((v) => v.toJson()).toList();
+    data['packaging'] = this.packaging;
+    data['published'] = this.published;
+    data['share_url'] = this.shareUrl;
+    data['thumbnail'] = this.thumbnail;
+    if (this.categories != null) {
+      data['categories'] = this.categories!.map((v) => v.toJson()).toList();
     }
-    data['display_name'] = displayName;
-    if (priceInstructions != null) {
-      data['price_instructions'] = priceInstructions!.toJson();
+    data['display_name'] = this.displayName;
+    if (this.priceInstructions != null) {
+      data['price_instructions'] = this.priceInstructions!.toJson();
     }
     return data;
   }
@@ -173,9 +198,9 @@ class Badges {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['is_water'] = isWater;
-    data['requires_age_check'] = requiresAgeCheck;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['is_water'] = this.isWater;
+    data['requires_age_check'] = this.requiresAgeCheck;
     return data;
   }
 }
@@ -196,11 +221,11 @@ class Categories {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['level'] = level;
-    data['order'] = order;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['level'] = this.level;
+    data['order'] = this.order;
     return data;
   }
 }
@@ -209,25 +234,27 @@ class PriceInstructions {
   int? iva;
   bool? isNew;
   bool? isPack;
-  int? unitSize;
+  double? packSize;
+  String? unitName;
+  double? unitSize;
   String? bulkPrice;
   String? unitPrice;
   bool? approxSize;
   String? sizeFormat;
   bool? unitSelector;
   bool? bunchSelector;
-  int? sellingMethod;
+  double? drainedWeight;
   bool? priceDecreased;
   String? referencePrice;
-  int? minBunchAmount;
   String? referenceFormat;
   String? previousUnitPrice;
-  int? incrementBunchAmount;
 
   PriceInstructions(
       {this.iva,
       this.isNew,
       this.isPack,
+      this.packSize,
+      this.unitName,
       this.unitSize,
       this.bulkPrice,
       this.unitPrice,
@@ -235,18 +262,18 @@ class PriceInstructions {
       this.sizeFormat,
       this.unitSelector,
       this.bunchSelector,
-      this.sellingMethod,
+      this.drainedWeight,
       this.priceDecreased,
       this.referencePrice,
-      this.minBunchAmount,
       this.referenceFormat,
-      this.previousUnitPrice,
-      this.incrementBunchAmount});
+      this.previousUnitPrice});
 
   PriceInstructions.fromJson(Map<String, dynamic> json) {
     iva = json['iva'];
     isNew = json['is_new'];
     isPack = json['is_pack'];
+    packSize = json['pack_size'];
+    unitName = json['unit_name'];
     unitSize = json['unit_size'];
     bulkPrice = json['bulk_price'];
     unitPrice = json['unit_price'];
@@ -254,34 +281,32 @@ class PriceInstructions {
     sizeFormat = json['size_format'];
     unitSelector = json['unit_selector'];
     bunchSelector = json['bunch_selector'];
-    sellingMethod = json['selling_method'];
+    drainedWeight = json['drained_weight'];
     priceDecreased = json['price_decreased'];
     referencePrice = json['reference_price'];
-    minBunchAmount = json['min_bunch_amount'];
     referenceFormat = json['reference_format'];
     previousUnitPrice = json['previous_unit_price'];
-    incrementBunchAmount = json['increment_bunch_amount'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['iva'] = iva;
-    data['is_new'] = isNew;
-    data['is_pack'] = isPack;
-    data['unit_size'] = unitSize;
-    data['bulk_price'] = bulkPrice;
-    data['unit_price'] = unitPrice;
-    data['approx_size'] = approxSize;
-    data['size_format'] = sizeFormat;
-    data['unit_selector'] = unitSelector;
-    data['bunch_selector'] = bunchSelector;
-    data['selling_method'] = sellingMethod;
-    data['price_decreased'] = priceDecreased;
-    data['reference_price'] = referencePrice;
-    data['min_bunch_amount'] = minBunchAmount;
-    data['reference_format'] = referenceFormat;
-    data['previous_unit_price'] = previousUnitPrice;
-    data['increment_bunch_amount'] = incrementBunchAmount;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['iva'] = this.iva;
+    data['is_new'] = this.isNew;
+    data['is_pack'] = this.isPack;
+    data['pack_size'] = this.packSize;
+    data['unit_name'] = this.unitName;
+    data['unit_size'] = this.unitSize;
+    data['bulk_price'] = this.bulkPrice;
+    data['unit_price'] = this.unitPrice;
+    data['approx_size'] = this.approxSize;
+    data['size_format'] = this.sizeFormat;
+    data['unit_selector'] = this.unitSelector;
+    data['bunch_selector'] = this.bunchSelector;
+    data['drained_weight'] = this.drainedWeight;
+    data['price_decreased'] = this.priceDecreased;
+    data['reference_price'] = this.referencePrice;
+    data['reference_format'] = this.referenceFormat;
+    data['previous_unit_price'] = this.previousUnitPrice;
     return data;
   }
 }
