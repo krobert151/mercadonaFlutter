@@ -93,14 +93,13 @@ class Content {
 
 class Items {
   String? id;
-  String? title;
   String? imageUrl;
   String? textColor;
   List<String>? bgColors;
   String? buttonColor;
   String? apiPath;
   String? slug;
-  int? limit;
+  String? limit;
   Badges? badges;
   String? packaging;
   bool? published;
@@ -112,7 +111,6 @@ class Items {
 
   Items(
       {this.id,
-      this.title,
       this.imageUrl,
       this.textColor,
       this.bgColors,
@@ -131,14 +129,13 @@ class Items {
 
   Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'];
     imageUrl = json['image_url'];
     textColor = json['text_color'];
     bgColors = json['bg_colors'].cast<String>();
     buttonColor = json['button_color'];
     apiPath = json['api_path'];
     slug = json['slug'];
-    limit = json['limit'];
+    limit = json['limit']?.toString();
     badges =
         json['badges'] != null ? new Badges.fromJson(json['badges']) : null;
     packaging = json['packaging'];
@@ -160,7 +157,6 @@ class Items {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['title'] = this.title;
     data['image_url'] = this.imageUrl;
     data['text_color'] = this.textColor;
     data['bg_colors'] = this.bgColors;
@@ -208,24 +204,18 @@ class Badges {
 class Categories {
   int? id;
   String? name;
-  int? level;
-  int? order;
 
-  Categories({this.id, this.name, this.level, this.order});
+  Categories({this.id, this.name});
 
   Categories.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    level = json['level'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['level'] = this.level;
-    data['order'] = this.order;
     return data;
   }
 }
