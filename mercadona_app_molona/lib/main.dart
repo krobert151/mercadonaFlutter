@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mercadona_app_molona/categories/widget/category_list.dart';
+import 'package:mercadona_app_molona/ui/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const CategoryList(),
+      home: const HomePage(),
     );
   }
 }
