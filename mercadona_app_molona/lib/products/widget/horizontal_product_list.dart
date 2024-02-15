@@ -19,7 +19,7 @@ class HorizontalList extends StatelessWidget {
               width: 200,
               child: Stack(children: [
                 Card(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   surfaceTintColor: Colors.white,
                   shadowColor: Colors.black,
                   child: Padding(
