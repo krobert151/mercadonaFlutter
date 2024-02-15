@@ -45,17 +45,21 @@ class _ListsProdCatState extends State<ListsProdCat> {
             child: ListView.builder(
               itemCount: state.prodCadtegoryResponse.categories!.length,
               itemBuilder: (context, index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${state.prodCadtegoryResponse.categories![index].name!} ${state.prodCadtegoryResponse.categories![index].id.toString()}",
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    HorizontalList(
-                        state.prodCadtegoryResponse.categories![index].products)
-                  ],
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        state.prodCadtegoryResponse.categories![index].name!,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      HorizontalList(state
+                          .prodCadtegoryResponse.categories![index].products)
+                    ],
+                  ),
                 );
               },
             ),
